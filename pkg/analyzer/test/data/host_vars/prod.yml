@@ -1,0 +1,7 @@
+complex_thingy:
+    - name: bla
+      some_other: cdll_mq
+
+simple_var: ' ablas'
+other_type: true
+    
