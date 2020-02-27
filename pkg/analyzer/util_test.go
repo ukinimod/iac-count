@@ -15,3 +15,12 @@ func TestNumberOfLines(t *testing.T) {
 		t.Errorf("got %d want %d", got, want)
 	}
 }
+
+func TestFiletype(t *testing.T) {
+	got := filetype("something/roles/a.b/tasks/main.yml")
+	want := "task"
+
+	if got != want {
+		t.Errorf("got %s want %s", got, want)
+	}
+}
