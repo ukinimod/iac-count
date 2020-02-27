@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	core "github.com/ukinimod/iac-count/pkg/core"
+	core "github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 func csvHeader(metricNames []string) string {

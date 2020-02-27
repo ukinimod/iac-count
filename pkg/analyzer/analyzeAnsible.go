@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	core "github.com/ukinimod/iac-count/pkg/core"
+	core "github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 var analyzers map[string]interface{} = map[string]interface{}{

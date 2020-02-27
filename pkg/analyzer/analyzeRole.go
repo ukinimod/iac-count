@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/ukinimod/iac-count/pkg/core"
+	"github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 func analyzeRole(path string) map[string]int {

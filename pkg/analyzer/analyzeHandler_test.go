@@ -3,7 +3,7 @@ package analyzer
 import (
 	"testing"
 
-	"github.com/ukinimod/iac-count/pkg/core"
+	"github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 func TestAnalyzeHandler(t *testing.T) {

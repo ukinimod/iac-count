@@ -3,7 +3,7 @@ package analyzer
 import (
 	"testing"
 
-	core "github.com/ukinimod/iac-count/pkg/core"
+	core "github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 func TestAnalyzeAnsibleProject(t *testing.T) {

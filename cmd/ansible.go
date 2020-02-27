@@ -4,9 +4,9 @@ import (
 	"log"
 
 	"github.com/spf13/cobra"
-	analyzer "github.com/ukinimod/iac-count/pkg/analyzer"
-	"github.com/ukinimod/iac-count/pkg/core"
-	"github.com/ukinimod/iac-count/pkg/output"
+	analyzer "github.com/MaibornWolff/iac-count/pkg/analyzer"
+	"github.com/MaibornWolff/iac-count/pkg/core"
+	"github.com/MaibornWolff/iac-count/pkg/output"
 )
 
 func getValidMetrics() []string {

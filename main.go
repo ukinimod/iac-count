@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/ukinimod/iac-count/cmd"
+	"github.com/MaibornWolff/iac-count/cmd"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package analyzer
 import (
 	"testing"
 
-	input "github.com/ukinimod/iac-count/pkg/input"
+	input "github.com/MaibornWolff/iac-count/pkg/input"
 )
 
 func TestNumberOfLines(t *testing.T) {

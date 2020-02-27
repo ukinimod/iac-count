@@ -6,7 +6,7 @@ import (
 
 	"github.com/hashicorp/logutils"
 	"github.com/spf13/cobra"
-	"github.com/ukinimod/iac-count/pkg/core"
+	"github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 var Debug bool

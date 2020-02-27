@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ukinimod/iac-count/pkg/core"
-	input "github.com/ukinimod/iac-count/pkg/input"
+	"github.com/MaibornWolff/iac-count/pkg/core"
+	input "github.com/MaibornWolff/iac-count/pkg/input"
 )
 
 func getCountLineMatchingFunc(pattern string) func(int, string) int {

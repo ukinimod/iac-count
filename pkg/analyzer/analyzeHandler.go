@@ -1,8 +1,8 @@
 package analyzer
 
 import (
-	"github.com/ukinimod/iac-count/pkg/core"
-	input "github.com/ukinimod/iac-count/pkg/input"
+	"github.com/MaibornWolff/iac-count/pkg/core"
+	input "github.com/MaibornWolff/iac-count/pkg/input"
 )
 
 func numberOfHandlers(handlerYaml string) int {

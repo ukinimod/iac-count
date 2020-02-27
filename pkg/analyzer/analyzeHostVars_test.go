@@ -3,8 +3,8 @@ package analyzer
 import (
 	"testing"
 
-	core "github.com/ukinimod/iac-count/pkg/core"
-	input "github.com/ukinimod/iac-count/pkg/input"
+	core "github.com/MaibornWolff/iac-count/pkg/core"
+	input "github.com/MaibornWolff/iac-count/pkg/input"
 )
 
 func TestAnalyzeHostVarsString(t *testing.T) {

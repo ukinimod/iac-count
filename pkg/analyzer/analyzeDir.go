@@ -1,6 +1,6 @@
 package analyzer
 
-import "github.com/ukinimod/iac-count/pkg/core"
+import "github.com/MaibornWolff/iac-count/pkg/core"
 
 func analyzeDir(path string) map[string]int {
 	metrics := make(map[string]int)

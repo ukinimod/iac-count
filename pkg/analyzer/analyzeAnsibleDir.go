@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	core "github.com/ukinimod/iac-count/pkg/core"
+	core "github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 func analyzeAnsibleDir(path string) map[string]int {
