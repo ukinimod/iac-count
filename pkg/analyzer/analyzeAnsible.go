@@ -61,9 +61,19 @@ func AnalyzeAnsibleProject(root string) map[string]core.FileData {
 				log.Printf("[WARN] %s", err)
 			}
 
-			log.Printf("[DEBUG] Analyzing path %s", relativePath)
-
 			basename := filepath.Base(path)
+
+			if basename != "." && strings.HasPrefix(basename, ".") {
+				log.Printf("[INFO] Skipping %s with path %s", basename, relativePath)
+				if info.IsDir() {
+					return filepath.SkipDir
+				} else {
+					return nil
+				}
+			}
+
+			log.Printf("[DEBUG] Analyzing %s with path %s", basename, relativePath)
+
 			parentPath := strings.TrimSuffix(relativePath, string(filepath.Separator)+basename)
 			if parentPath == "" || parentPath == relativePath {
 				parentPath = "."
