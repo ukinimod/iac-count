@@ -88,6 +88,9 @@ func mcc(tasks []input.AnsibleTask) int {
 
 	for _, task := range tasks {
 		m := 1
+		if task.Assert != nil {
+			return 2
+		}
 		if task.WhenClause != nil {
 			m = m * 2
 		}

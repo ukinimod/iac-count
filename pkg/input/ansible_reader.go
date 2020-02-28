@@ -57,6 +57,7 @@ type AnsibleTask struct {
 	RescueBlock            []AnsibleTask          `yaml:"rescue"`
 	AlwaysBlock            []AnsibleTask          `yaml:"always"`
 	Tags                   interface{}            `yaml:"tags"`
+	Assert                 interface{}            `yaml:"assert"`
 }
 
 func ReadTasksString(data string) []AnsibleTask {
