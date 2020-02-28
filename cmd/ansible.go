@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"log"
+	"sort"
 
-	"github.com/spf13/cobra"
 	analyzer "github.com/MaibornWolff/iac-count/pkg/analyzer"
 	"github.com/MaibornWolff/iac-count/pkg/core"
 	"github.com/MaibornWolff/iac-count/pkg/output"
+	"github.com/spf13/cobra"
 )
 
 func getValidMetrics() []string {
@@ -32,7 +33,8 @@ var CmdAnsible = &cobra.Command{
 
 		metricList := getValidMetrics()
 
-		fileMetrics := analyzer.AnalyzeAnsibleProject(args[0])
+		sort.Strings(SkipDirList)
+		fileMetrics := analyzer.AnalyzeAnsibleProject(args[0], SkipDirList)
 
 		switch PrintLevel {
 		case "file":

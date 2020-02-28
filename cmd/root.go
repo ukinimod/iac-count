@@ -4,15 +4,16 @@ import (
 	"log"
 	"os"
 
+	"github.com/MaibornWolff/iac-count/pkg/core"
 	"github.com/hashicorp/logutils"
 	"github.com/spf13/cobra"
-	"github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 var Debug bool
 var Quiet bool
 var PrintLevel string
 var MetricList []string
+var SkipDirList []string
 
 func init() {
 	RootCmd.AddCommand(CmdAnsible)
@@ -23,6 +24,7 @@ func init() {
 
 	RootCmd.PersistentFlags().StringVar(&PrintLevel, "level", "file", "print level (file|role|project)")
 	RootCmd.PersistentFlags().StringSliceVarP(&MetricList, "metrics", "m", core.MetricNames[:], "comma seperated list of metrics (default: all)")
+	RootCmd.PersistentFlags().StringSliceVar(&SkipDirList, "skip-dirs", make([]string, 0), "comma seperated list of directories to skip (default: none)")
 }
 
 func configureLogging() {

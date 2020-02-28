@@ -24,3 +24,12 @@ func TestFiletype(t *testing.T) {
 		t.Errorf("got %s want %s", got, want)
 	}
 }
+
+func TestIsRoleDir(t *testing.T) {
+	got := isRoleDir("roles/a.b/defaults")
+	want := true
+
+	if got != want {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
