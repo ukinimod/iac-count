@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"log"
 	"os"
 
+	log "github.com/sirupsen/logrus"
+
 	"github.com/MaibornWolff/iac-count/pkg/core"
-	"github.com/hashicorp/logutils"
 	"github.com/spf13/cobra"
 )
 
@@ -28,20 +28,15 @@ func init() {
 }
 
 func configureLogging() {
-	var logLevel = logutils.LogLevel("INFO")
+	log.SetLevel(log.WarnLevel)
 	if Debug {
-		logLevel = logutils.LogLevel("DEBUG")
+		log.SetLevel(log.DebugLevel)
 	}
 	if Quiet {
-		logLevel = logutils.LogLevel("ERROR")
+		log.SetLevel(log.ErrorLevel)
 	}
 
-	filter := &logutils.LevelFilter{
-		Levels:   []logutils.LogLevel{"DEBUG", "INFO", "WARN", "ERROR"},
-		MinLevel: logLevel,
-		Writer:   os.Stderr,
-	}
-	log.SetOutput(filter)
+	log.SetOutput(os.Stderr)
 }
 
 var RootCmd = &cobra.Command{

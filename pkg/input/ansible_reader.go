@@ -1,8 +1,7 @@
 package reader
 
 import (
-	"log"
-
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 )
 
@@ -16,7 +15,7 @@ func ReadMetaString(data string) AnsibleMetaData {
 
 	err := yaml.Unmarshal([]byte(data), &m)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return m
@@ -32,7 +31,7 @@ func ReadHandlersString(data string) []AnsibleHandler {
 
 	err := yaml.Unmarshal([]byte(data), &m)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return m
@@ -65,7 +64,7 @@ func ReadTasksString(data string) []AnsibleTask {
 
 	err := yaml.Unmarshal([]byte(data), &m)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return m
@@ -84,7 +83,7 @@ func ReadPlaybookString(data string) []AnsiblePlay {
 
 	err := yaml.Unmarshal([]byte(data), &m)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return m

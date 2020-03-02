@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"log"
 	"sort"
+
+	log "github.com/sirupsen/logrus"
 
 	analyzer "github.com/MaibornWolff/iac-count/pkg/analyzer"
 	"github.com/MaibornWolff/iac-count/pkg/core"

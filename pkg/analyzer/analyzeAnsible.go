@@ -1,10 +1,11 @@
 package analyzer
 
 import (
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 
 	core "github.com/MaibornWolff/iac-count/pkg/core"
 )
@@ -58,13 +59,13 @@ func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]core.Fi
 
 			relativePath, err := filepath.Rel(root, path)
 			if err != nil {
-				log.Printf("[WARN] %s", err)
+				log.Warnf("%s", err)
 			}
 
 			basename := filepath.Base(path)
 
 			if basename != "." && strings.HasPrefix(basename, ".") {
-				log.Printf("[INFO] Skipping %s with path %s", basename, relativePath)
+				log.Infof("Skipping %s with path %s", basename, relativePath)
 				if info.IsDir() {
 					return filepath.SkipDir
 				}
@@ -72,11 +73,11 @@ func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]core.Fi
 			}
 
 			if info.IsDir() && contains(skipDirList, relativePath) {
-				log.Printf("[INFO] Skipping %s with path %s", basename, relativePath)
+				log.Infof("Skipping %s with path %s", basename, relativePath)
 				return filepath.SkipDir
 			}
 
-			log.Printf("[DEBUG] Analyzing %s with path %s", basename, relativePath)
+			log.Debugf("Analyzing %s with path %s", basename, relativePath)
 
 			parentPath := strings.TrimSuffix(relativePath, string(filepath.Separator)+basename)
 			if parentPath == "" || parentPath == relativePath {
@@ -108,13 +109,13 @@ func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]core.Fi
 				parent.Children[basename] = relativePath
 				recursiveMetricAggregation(fileMetrics, parentPath, relativePath)
 			} else {
-				log.Printf("[DEBUG] No ancestor to %s ", relativePath)
+				log.Debugf("No ancestor to %s ", relativePath)
 			}
 
 			return nil
 		})
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return fileMetrics

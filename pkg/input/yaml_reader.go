@@ -1,7 +1,7 @@
 package reader
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"gopkg.in/yaml.v2"
 )
@@ -12,7 +12,7 @@ func ReadYamlAsList(data string) []interface{} {
 
 	err := yaml.Unmarshal([]byte(data), &m)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return m
@@ -24,7 +24,7 @@ func ReadYamlAsMap(data string) map[string]interface{} {
 
 	err := yaml.Unmarshal([]byte(data), &m)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 
 	return m

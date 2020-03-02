@@ -2,12 +2,13 @@ package analyzer
 
 import (
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func recursiveFileCount(path string) int {
@@ -23,7 +24,7 @@ func recursiveFileCount(path string) int {
 			return nil
 		})
 	if err != nil && !os.IsNotExist(err) {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 	return numFiles
 }
@@ -33,7 +34,7 @@ func subdirCount(path string) int {
 
 	fileinfo, err := ioutil.ReadDir(path)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 	for i := range fileinfo {
 		if fileinfo[i].IsDir() {
@@ -60,7 +61,7 @@ func numberOfLines(s string) int {
 func pathContainsDirName(path, dirName string) bool {
 	matched, err := regexp.MatchString("[.*/]?"+dirName+"[/.*]?", path)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 	return matched
 }
@@ -122,7 +123,7 @@ var optionalRolePaths []string = []string{
 func hasRoleStructure(root string) bool {
 	fileinfo, err := ioutil.ReadDir(root)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 	for _, fileinfoContent := range fileinfo {
 		index := sort.Search(len(necessaryRolePaths), func(i int) bool { return necessaryRolePaths[i] >= fileinfoContent.Name() })
@@ -141,7 +142,7 @@ func isRoleDir(path string) bool {
 		matched, err := regexp.MatchString("[.*/]?roles/.*/"+necessaryRolePaths[i], path)
 
 		if err != nil {
-			log.Printf("[WARN] %s", err)
+			log.Warnf("%s", err)
 		}
 
 		if matched {
@@ -153,7 +154,7 @@ func isRoleDir(path string) bool {
 		matched, err := regexp.MatchString("[.*/]?roles/.*/"+optionalRolePaths[i], path)
 
 		if err != nil {
-			log.Printf("[WARN] %s", err)
+			log.Warnf("%s", err)
 		}
 
 		if matched {
@@ -167,7 +168,7 @@ func isRoleDir(path string) bool {
 func hasAnsibleProjectStructure(root string) bool {
 	fileinfo, err := ioutil.ReadDir(root)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 	for _, fileinfoContent := range fileinfo {
 		if fileinfoContent.Name() == "roles" || fileinfoContent.Name() == "site.yml" || fileinfoContent.Name() == "playbooks" {
@@ -200,7 +201,7 @@ func dirtype(path string) string {
 	}
 
 	if !isRoleDir(path) {
-		log.Printf("[INFO] Unknown Directory %s\n", path)
+		log.Infof("Unknown Directory %s\n", path)
 	}
 
 	return "dir"

@@ -2,8 +2,9 @@ package analyzer
 
 import (
 	"io/ioutil"
-	"log"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 
 	core "github.com/MaibornWolff/iac-count/pkg/core"
 )
@@ -15,7 +16,7 @@ func analyzeAnsibleDir(path string) map[string]int {
 
 	fileinfo, err := ioutil.ReadDir(path)
 	if err != nil {
-		log.Printf("[WARN] %s", err)
+		log.Warnf("%s", err)
 	}
 	for i := range fileinfo {
 		if fileinfo[i].IsDir() && strings.HasSuffix(fileinfo[i].Name(), "plugins") {
