@@ -23,17 +23,17 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&Quiet, "quiet", "q", false, "run with error level only logging")
 
 	RootCmd.PersistentFlags().StringVar(&PrintLevel, "level", "file", "print level (file|role|project)")
-	RootCmd.PersistentFlags().StringSliceVarP(&MetricList, "metrics", "m", core.MetricNames[:], "comma separated list of metrics (default: all)")
+	RootCmd.PersistentFlags().StringSliceVarP(&MetricList, "metrics", "m", core.MetricNames[:], "comma separated list of metrics")
 	RootCmd.PersistentFlags().StringSliceVar(&SkipDirList, "skip-dirs", make([]string, 0), "comma separated list of directories to skip (default: none)")
 }
 
 func configureLogging() {
-	log.SetLevel(log.WarnLevel)
 	if Debug {
 		log.SetLevel(log.DebugLevel)
-	}
-	if Quiet {
+	} else if Quiet {
 		log.SetLevel(log.ErrorLevel)
+	} else {
+		log.SetLevel(log.WarnLevel)
 	}
 
 	log.SetOutput(os.Stderr)

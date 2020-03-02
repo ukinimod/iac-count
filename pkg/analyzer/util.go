@@ -150,18 +150,6 @@ func isRoleDir(path string) bool {
 		}
 	}
 
-	for i := range optionalRolePaths {
-		matched, err := regexp.MatchString("[.*/]?roles/.*/"+optionalRolePaths[i], path)
-
-		if err != nil {
-			log.Warnf("%s", err)
-		}
-
-		if matched {
-			return true
-		}
-	}
-
 	return false
 }
 
@@ -184,23 +172,20 @@ func dirtype(path string) string {
 
 	if strings.HasSuffix(path, "roles/"+basename) {
 		hasRoleStructure(path)
-
 		return "role"
-	}
-
-	if strings.HasSuffix(basename, "playbooks") || strings.HasSuffix(path, "playbooks/"+basename) {
-		return "dir"
-	}
-
-	if basename == "roles" || strings.HasSuffix(basename, "plugins") || basename == "group_vars" || basename == "host_vars" {
-		return "dir"
 	}
 
 	if hasAnsibleProjectStructure(path) {
 		return "ansible_project"
 	}
 
-	if !isRoleDir(path) {
+	if !(strings.HasSuffix(basename, "playbooks") ||
+		strings.HasSuffix(path, "playbooks/"+basename) ||
+		strings.HasSuffix(basename, "plugins") ||
+		basename == "roles" ||
+		basename == "group_vars" ||
+		basename == "host_vars") &&
+		!isRoleDir(path) {
 		log.Infof("Unknown Directory %s\n", path)
 	}
 

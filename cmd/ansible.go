@@ -25,7 +25,7 @@ func getValidMetrics() []string {
 }
 
 var CmdAnsible = &cobra.Command{
-	Use:   "ansible [root of ansible project]",
+	Use:   "ansible ANSIBLE_ROOT",
 	Short: "`ansible` analyzes ansible projects",
 	Long:  "`ansible` analyzes ansible projects",
 	Args:  cobra.ExactArgs(1),

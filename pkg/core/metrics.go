@@ -58,46 +58,46 @@ func IsValidMetric(metric string) bool {
 func DescribeMetric(metric string) string {
 	switch metric {
 	case Loc:
-		return "Number of code lines in File (agg: sum)"
+		return "Number of code lines in file (agg: sum)"
 	case Tasks:
-		return "Number of tasks in File (agg: sum)"
+		return "Number of tasks in file (agg: sum)"
 	case Handlers:
-		return "Number of Handlers in File (agg: sum)"
+		return "Number of handlers in file (agg: sum)"
 	case Complexity:
-		return "Complexity of File (agg: sum, see documentation)"
+		return "Complexity of file (agg: sum, see documentation)"
 	case Vars:
-		return "Number of Variables in Role (agg: sum)"
+		return "Number of variables in role (agg: sum)"
 	case Defaults:
-		return "Number of Defaults in Role (agg: sum)"
+		return "Number of defaults in role (agg: sum)"
 	case GroupVars:
-		return "Number of Group Vars in File (agg: sum)"
+		return "Number of group Vars in file (agg: sum)"
 	case HostVars:
-		return "Number of Host Vars in File (agg: sum)"
+		return "Number of host Vars in file (agg: sum)"
 	case Dependencies:
-		return "Number of Dependencies to Roles in Roles (agg: sum)"
+		return "Number of dependencies to roles in roles (agg: sum)"
 	case Rloc:
-		return "Number of non-blank, non-comment lines in File (agg: sum)"
+		return "Number of non-blank, non-comment lines in file (agg: sum)"
 	case CommentLines:
-		return "Number of comment-only Lines in File (agg: sum)"
+		return "Number of comment-only lines in file (agg: sum)"
 	case Files:
-		return "Number of Files in Directory and Sub-Directories (agg: sum)"
+		return "Number of files in directory and sub-directories (agg: sum)"
 	case Templates:
-		return "Number of Templates in Role (agg: sum)"
+		return "Number of templates in role (agg: sum)"
 	case StaticFiles:
-		return "Number of static Files in Role (agg: sum)"
+		return "Number of static files in role (agg: sum)"
 	case Plugins:
-		return "Number of Plugins in Role / Ansible Project"
+		return "Number of plugins in role / ansible project"
 	case Roles:
-		return "Number of Roles in Ansible Project (agg: sum)"
+		return "Number of roles in ansible project (agg: sum)"
 	case Plays:
-		return "Number of Plays in Ansible Project (agg: sum)"
+		return "Number of plays in ansible project (agg: sum)"
 	case CustomFacts:
-		return "Number of Custom Facts in File (agg: sum)"
+		return "Number of custom facts in file (agg: sum)"
 	case MaxNL:
-		return "Maximal Nesting Level (agg: max)"
+		return "Maximal nesting level (agg: max)"
 	case TaggedTasks:
-		return "Number of Tasks that have tags (agg: sum)"
+		return "Number of tasks that have tags (agg: sum)"
 	default:
-		return "Unknown Metric"
+		return "Unknown metric"
 	}
 }
