@@ -9,22 +9,22 @@ import (
 func TestAnalyzeAnsibleProject(t *testing.T) {
 	got := AnalyzeAnsibleProject("test/data/")
 
-	got_len := len(got)
-	want_len := 18
+	gotLen := len(got)
+	wantLen := 18
 
-	if got_len != want_len {
-		t.Errorf("wrong number of nodes: got %d want %d", got_len, want_len)
+	if gotLen != wantLen {
+		t.Errorf("wrong number of nodes: got %d want %d", gotLen, wantLen)
 	}
 
-	got_root := got["."]
-	got_children_len := len(got_root.Children)
-	want_children_len := 4
+	gotRoot := got["."]
+	gotChildrenLen := len(gotRoot.Children)
+	wantChildrenLen := 4
 
-	if got_children_len != want_children_len {
-		t.Errorf("wrong number of children for . : got children %s wanted %d children, ", got_root.Children, want_children_len)
+	if gotChildrenLen != wantChildrenLen {
+		t.Errorf("wrong number of children for . : got children %s wanted %d children, ", gotRoot.Children, wantChildrenLen)
 	}
 
-	got_metrics := got_root.Metrics
+	gotMetrics := gotRoot.Metrics
 	want := make(map[string]int)
 	want[core.Loc] = 138
 	want[core.Tasks] = 12
@@ -47,8 +47,8 @@ func TestAnalyzeAnsibleProject(t *testing.T) {
 	want[core.TaggedTasks] = 3
 
 	for k := range want {
-		if got_metrics[k] != want[k] {
-			t.Errorf("got %d for %q in . want %d", got_metrics[k], k, want[k])
+		if gotMetrics[k] != want[k] {
+			t.Errorf("got %d for %q in . want %d", gotMetrics[k], k, want[k])
 		}
 	}
 }
@@ -71,14 +71,14 @@ func TestRecursiveMetricAggregation(t *testing.T) {
 
 	recursiveMetricAggregation(given, ".", "main.yml")
 
-	got_metrics := given["."].Metrics
+	gotMetrics := given["."].Metrics
 
 	want := make(map[string]int)
 	want[core.Loc] = 1
 
 	for k := range want {
-		if got_metrics[k] != want[k] {
-			t.Errorf("got %d for %q in . want %d", got_metrics[k], k, want[k])
+		if gotMetrics[k] != want[k] {
+			t.Errorf("got %d for %q in . want %d", gotMetrics[k], k, want[k])
 		}
 	}
 }

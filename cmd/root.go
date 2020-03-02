@@ -4,9 +4,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/MaibornWolff/iac-count/pkg/core"
 	"github.com/hashicorp/logutils"
 	"github.com/spf13/cobra"
-	"github.com/MaibornWolff/iac-count/pkg/core"
 )
 
 var Debug bool
@@ -22,7 +22,7 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&Quiet, "quiet", "q", false, "run with error level only logging")
 
 	RootCmd.PersistentFlags().StringVar(&PrintLevel, "level", "file", "print level (file|role|project)")
-	RootCmd.PersistentFlags().StringSliceVarP(&MetricList, "metrics", "m", core.MetricNames[:], "comma seperated list of metrics (default: all)")
+	RootCmd.PersistentFlags().StringSliceVarP(&MetricList, "metrics", "m", core.MetricNames[:], "comma separated list of metrics (default: all)")
 }
 
 func configureLogging() {

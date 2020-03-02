@@ -82,7 +82,6 @@ func AnalyzeAnsibleProject(root string) map[string]core.FileData {
 
 			analyzer := analyzers[typeOfNode]
 			if analyzer != nil {
-
 				fileMetrics[relativePath] = core.FileData{
 					RelativePath: relativePath,
 					Filetype:     typeOfNode,
@@ -107,8 +106,7 @@ func AnalyzeAnsibleProject(root string) map[string]core.FileData {
 	return fileMetrics
 }
 
-func recursiveMetricAggregation(fileMetrics map[string]core.FileData, parentPath string, relativePath string) {
-
+func recursiveMetricAggregation(fileMetrics map[string]core.FileData, parentPath, relativePath string) {
 	parent := fileMetrics[parentPath]
 	for _, metricName := range aggregationMetrics {
 		if _, exists := fileMetrics[relativePath].Metrics[metricName]; exists {

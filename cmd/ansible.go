@@ -3,10 +3,10 @@ package cmd
 import (
 	"log"
 
-	"github.com/spf13/cobra"
 	analyzer "github.com/MaibornWolff/iac-count/pkg/analyzer"
 	"github.com/MaibornWolff/iac-count/pkg/core"
 	"github.com/MaibornWolff/iac-count/pkg/output"
+	"github.com/spf13/cobra"
 )
 
 func getValidMetrics() []string {

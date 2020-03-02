@@ -57,7 +57,7 @@ func numberOfLines(s string) int {
 	return n
 }
 
-func pathContainsDirName(path string, dirName string) bool {
+func pathContainsDirName(path, dirName string) bool {
 	matched, err := regexp.MatchString("[.*/]?"+dirName+"[/.*]?", path)
 	if err != nil {
 		log.Printf("[WARN] %s", err)
@@ -120,14 +120,13 @@ var optionalRolePaths []string = []string{
 }
 
 func hasRoleStructure(root string) bool {
-
 	fileinfo, err := ioutil.ReadDir(root)
 	if err != nil {
 		log.Printf("[WARN] %s", err)
 	}
-	for fileinfoIndex := range fileinfo {
-		index := sort.Search(len(necessaryRolePaths), func(i int) bool { return necessaryRolePaths[i] >= fileinfo[fileinfoIndex].Name() })
-		if index < len(necessaryRolePaths) && necessaryRolePaths[index] == fileinfo[fileinfoIndex].Name() {
+	for _, fileinfoContent := range fileinfo {
+		index := sort.Search(len(necessaryRolePaths), func(i int) bool { return necessaryRolePaths[i] >= fileinfoContent.Name() })
+		if index < len(necessaryRolePaths) && necessaryRolePaths[index] == fileinfoContent.Name() {
 			return true
 		}
 	}
@@ -166,13 +165,12 @@ func isRoleDir(path string) bool {
 }
 
 func hasAnsibleProjectStructure(root string) bool {
-
 	fileinfo, err := ioutil.ReadDir(root)
 	if err != nil {
 		log.Printf("[WARN] %s", err)
 	}
-	for i := range fileinfo {
-		if fileinfo[i].Name() == "roles" || fileinfo[i].Name() == "site.yml" || fileinfo[i].Name() == "playbooks" {
+	for _, fileinfoContent := range fileinfo {
+		if fileinfoContent.Name() == "roles" || fileinfoContent.Name() == "site.yml" || fileinfoContent.Name() == "playbooks" {
 			return true
 		}
 	}

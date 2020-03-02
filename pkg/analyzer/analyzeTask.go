@@ -69,7 +69,7 @@ func numberOfCustomFacts(task []input.AnsibleTask) int {
 	return count
 }
 
-func isLoop(task input.AnsibleTask) bool {
+func isLoop(task *input.AnsibleTask) bool {
 	return task.LoopClause != nil ||
 		task.WithDictClause != nil ||
 		task.WithFlattenedClause != nil ||
@@ -92,19 +92,19 @@ func mcc(tasks []input.AnsibleTask) int {
 			return 2
 		}
 		if task.WhenClause != nil {
-			m = m * 2
+			m *= 2
 		}
 		if task.Block != nil {
-			m = m * mcc(task.Block)
+			m *= mcc(task.Block)
 		}
 		if task.RescueBlock != nil {
-			m = m * 2 * mcc(task.RescueBlock)
+			m *= 2 * mcc(task.RescueBlock)
 		}
 		if task.AlwaysBlock != nil {
-			m = m * mcc(task.AlwaysBlock)
+			m *= mcc(task.AlwaysBlock)
 		}
-		if isLoop(task) {
-			m = m * 2
+		if isLoop(&task) {
+			m *= 2
 		}
 		count += m
 	}

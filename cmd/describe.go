@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"github.com/MaibornWolff/iac-count/pkg/output"
+	"github.com/spf13/cobra"
 )
 
 var CmdDescribe = &cobra.Command{
