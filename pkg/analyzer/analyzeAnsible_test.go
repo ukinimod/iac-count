@@ -7,7 +7,7 @@ import (
 )
 
 func TestAnalyzeAnsibleProject(t *testing.T) {
-	got := AnalyzeAnsibleProject("test/data/")
+	got := AnalyzeAnsibleProject("test/data/", make([]string, 0))
 
 	gotLen := len(got)
 	wantLen := 18

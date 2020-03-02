@@ -46,7 +46,7 @@ var aggregationMetrics = [...]string{
 	core.TaggedTasks,
 }
 
-func AnalyzeAnsibleProject(root string) map[string]core.FileData {
+func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]core.FileData {
 	fileMetrics := make(map[string]core.FileData)
 
 	// processing
@@ -61,9 +61,23 @@ func AnalyzeAnsibleProject(root string) map[string]core.FileData {
 				log.Printf("[WARN] %s", err)
 			}
 
-			log.Printf("[DEBUG] Analyzing path %s", relativePath)
-
 			basename := filepath.Base(path)
+
+			if basename != "." && strings.HasPrefix(basename, ".") {
+				log.Printf("[INFO] Skipping %s with path %s", basename, relativePath)
+				if info.IsDir() {
+					return filepath.SkipDir
+				}
+				return nil
+			}
+
+			if info.IsDir() && contains(skipDirList, relativePath) {
+				log.Printf("[INFO] Skipping %s with path %s", basename, relativePath)
+				return filepath.SkipDir
+			}
+
+			log.Printf("[DEBUG] Analyzing %s with path %s", basename, relativePath)
+
 			parentPath := strings.TrimSuffix(relativePath, string(filepath.Separator)+basename)
 			if parentPath == "" || parentPath == relativePath {
 				parentPath = "."

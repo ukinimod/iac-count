@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"log"
+	"sort"
 
 	analyzer "github.com/MaibornWolff/iac-count/pkg/analyzer"
 	"github.com/MaibornWolff/iac-count/pkg/core"
@@ -32,7 +33,8 @@ var CmdAnsible = &cobra.Command{
 
 		metricList := getValidMetrics()
 
-		fileMetrics := analyzer.AnalyzeAnsibleProject(args[0])
+		sort.Strings(SkipDirList)
+		fileMetrics := analyzer.AnalyzeAnsibleProject(args[0], SkipDirList)
 
 		switch PrintLevel {
 		case "file":

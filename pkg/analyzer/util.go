@@ -138,7 +138,7 @@ func hasRoleStructure(root string) bool {
 
 func isRoleDir(path string) bool {
 	for i := range necessaryRolePaths {
-		matched, err := regexp.MatchString(".*/roles/.*/"+necessaryRolePaths[i], path)
+		matched, err := regexp.MatchString("[.*/]?roles/.*/"+necessaryRolePaths[i], path)
 
 		if err != nil {
 			log.Printf("[WARN] %s", err)
@@ -150,7 +150,7 @@ func isRoleDir(path string) bool {
 	}
 
 	for i := range optionalRolePaths {
-		matched, err := regexp.MatchString(".*/roles/.*/"+optionalRolePaths[i], path)
+		matched, err := regexp.MatchString("[.*/]?roles/.*/"+optionalRolePaths[i], path)
 
 		if err != nil {
 			log.Printf("[WARN] %s", err)
@@ -204,4 +204,9 @@ func dirtype(path string) string {
 	}
 
 	return "dir"
+}
+
+func contains(s []string, searchterm string) bool {
+	i := sort.SearchStrings(s, searchterm)
+	return i < len(s) && s[i] == searchterm
 }
