@@ -1,0 +1,20 @@
+package ansible
+
+import (
+	"testing"
+)
+
+func TestAnalyzeTask(t *testing.T) {
+	got := analyzeTask("test/data/roles/example/tasks/main.yml")
+	want := make(map[string]int)
+	want[Tasks] = 9
+	want[TaggedTasks] = 3
+	want[CustomFacts] = 0
+	want[Complexity] = 12
+
+	for k := range want {
+		if got[k] != want[k] {
+			t.Errorf("got %d for %q want %d", got[k], k, want[k])
+		}
+	}
+}

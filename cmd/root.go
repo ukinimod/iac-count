@@ -5,26 +5,22 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/MaibornWolff/iac-count/pkg/core"
 	"github.com/spf13/cobra"
 )
 
 var Debug bool
 var Quiet bool
 var PrintLevel string
-var MetricList []string
 var SkipDirList []string
 
 func init() {
 	RootCmd.AddCommand(CmdAnsible)
-	RootCmd.AddCommand(CmdDescribe)
 
 	RootCmd.PersistentFlags().BoolVarP(&Debug, "debug", "d", false, "debug level logging")
 	RootCmd.PersistentFlags().BoolVarP(&Quiet, "quiet", "q", false, "run with error level only logging")
 
 	RootCmd.PersistentFlags().StringVar(&PrintLevel, "level", "file", "print level (file|role|project)")
-	RootCmd.PersistentFlags().StringSliceVarP(&MetricList, "metrics", "m", core.MetricNames[:], "comma separated list of metrics")
-	RootCmd.PersistentFlags().StringSliceVar(&SkipDirList, "skip-dirs", make([]string, 0), "comma separated list of directories to skip (default: none)")
+	RootCmd.PersistentFlags().StringSliceVar(&SkipDirList, "skip-dirs", make([]string, 0), "comma separated list of directories to skip")
 }
 
 func configureLogging() {

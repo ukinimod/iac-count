@@ -24,8 +24,8 @@ func TestReadYamlAsListOnFailure(t *testing.T) {
 
 func TestReadYamlAsMap(t *testing.T) {
 	exampleData := ReadFileToString("test/data/varsfile.yaml")
-	got := ReadYamlAsMap(exampleData)["bla"]
-	want := "blabla"
+	got := ReadYamlAsMap(exampleData)["simple_var"]
+	want := " ablas"
 
 	if got != want {
 		t.Errorf("got %s want %s", got, want)

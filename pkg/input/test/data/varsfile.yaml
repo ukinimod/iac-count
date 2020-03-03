@@ -1,15 +1,7 @@
----
+complex_thingy:
+    - name: bla
+      some_other: cdll_mq
 
-# Some vars
-bla: 'blabla'
-bla_thingy: 202020
-
-# Some other vars
-blubb: 'bla blubb'
-blubb_thingy: '202021'
-
-# A whole lot of stupid vars
-bla_blubbs:
-  bla: 'blubb.bla'
-  enabled: True
-  default: False
+simple_var: ' ablas'
+other_type: true
+    
