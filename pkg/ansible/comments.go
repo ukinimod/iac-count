@@ -35,6 +35,7 @@ func (calculator CommentsCalculator) Analyze(path, content string) metrics.Metri
 		}
 	}
 
-	return metrics.Comments{count}
-
+	return metrics.Comments{
+		Val: count,
+	}
 }

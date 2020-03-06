@@ -13,11 +13,7 @@ type RlocCalculator struct {
 }
 
 func (calculator RlocCalculator) isFileValidForMetric(path string) bool {
-	if filepath.Ext(path) == ".yml" {
-		return true
-	}
-
-	return false
+	return filepath.Ext(path) == ".yml"
 }
 
 func (calculator RlocCalculator) Analyze(path, content string) metrics.Metric {
@@ -35,5 +31,7 @@ func (calculator RlocCalculator) Analyze(path, content string) metrics.Metric {
 		}
 	}
 
-	return metrics.Rloc{count}
+	return metrics.Rloc{
+		Val: count,
+	}
 }

@@ -6,7 +6,7 @@ import (
 
 func TestFiletype(t *testing.T) {
 	got := filetype("something/roles/a.b/tasks/main.yml")
-	want := "task"
+	var want NodeType = Tasks
 
 	if got != want {
 		t.Errorf("got %s want %s", got, want)

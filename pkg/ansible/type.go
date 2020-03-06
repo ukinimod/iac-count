@@ -11,41 +11,59 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func filetype(path string) string {
+type NodeType string
+
+const (
+	File      = "file"
+	Tasks     = "tasks"
+	Handlers  = "handlers"
+	GroupVars = "group_vars"
+	HostVars  = "host_vars"
+	Vars      = "vars"
+	Defaults  = "defaults"
+	Meta      = "meta"
+	Playbook  = "playbook"
+	Yml       = "yml"
+	Role      = "role"
+	Project   = "project"
+	Directory = "directory"
+)
+
+func filetype(path string) NodeType {
 	ext := filepath.Ext(path)
 
 	if ext != ".yml" {
-		return "file"
+		return File
 	}
 
 	dir := filepath.Dir(path)
 
 	if util.PathContainsDirName(dir, "tasks") {
-		return "task"
+		return Tasks
 	}
 	if util.PathContainsDirName(dir, "handlers") {
-		return "handler"
+		return Handlers
 	}
 	if util.PathContainsDirName(dir, "group_vars") {
-		return "group_vars"
+		return GroupVars
 	}
 	if util.PathContainsDirName(dir, "host_vars") {
-		return "host_vars"
+		return HostVars
 	}
 	if util.PathContainsDirName(dir, "vars") {
-		return "vars"
+		return Vars
 	}
 	if util.PathContainsDirName(dir, "defaults") {
-		return "defaults"
+		return Defaults
 	}
 	if util.PathContainsDirName(dir, "meta") {
-		return "meta"
+		return Meta
 	}
 	if util.PathContainsDirName(dir, "playbooks") || dir == "" || dir == "." {
-		return "playbook"
+		return Playbook
 	}
 
-	return "yml"
+	return Yml
 }
 
 // role must contain at least one of the following paths
@@ -98,7 +116,9 @@ func hasAnsibleProjectStructure(root string) bool {
 		log.Warnf("%s", err)
 	}
 	for _, fileinfoContent := range fileinfo {
-		if fileinfoContent.Name() == "roles" || fileinfoContent.Name() == "site.yml" || fileinfoContent.Name() == "playbooks" {
+		if fileinfoContent.Name() == "roles" ||
+			fileinfoContent.Name() == "site.yml" ||
+			fileinfoContent.Name() == "playbooks" {
 			return true
 		}
 	}
@@ -106,16 +126,16 @@ func hasAnsibleProjectStructure(root string) bool {
 	return false
 }
 
-func dirtype(path string) string {
+func dirtype(path string) NodeType {
 	basename := filepath.Base(path)
 
 	if strings.HasSuffix(path, "roles/"+basename) {
 		hasRoleStructure(path)
-		return "role"
+		return Role
 	}
 
 	if hasAnsibleProjectStructure(path) {
-		return "ansible_project"
+		return Project
 	}
 
 	if !(strings.HasSuffix(basename, "playbooks") ||
@@ -128,5 +148,5 @@ func dirtype(path string) string {
 		log.Infof("Unknown Directory %s\n", path)
 	}
 
-	return "dir"
+	return Directory
 }

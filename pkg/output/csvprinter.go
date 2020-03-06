@@ -11,6 +11,12 @@ import (
 	"github.com/MaibornWolff/iac-count/pkg/model"
 )
 
+const (
+	PrintLevelRole    = "role"
+	PrintLevelFile    = "file"
+	PrintLevelProject = "project"
+)
+
 func csvHeader(metricNames []string) string {
 	return "path,type," + strings.Join(metricNames, ",")
 }
@@ -34,11 +40,11 @@ func csvBodyLine(k string, v model.NodeData, metricNames []string) string {
 
 func PrintMetricsAsCsv(metrics map[string]model.NodeData, level string) {
 	switch level {
-	case "file":
+	case PrintLevelFile:
 		printAsCsv(metrics, func(it string) bool { return true })
-	case "role":
+	case PrintLevelRole:
 		printAsCsv(metrics, func(it string) bool { return it == "role" || it == "ansible_project" })
-	case "project":
+	case PrintLevelProject:
 		printAsCsv(metrics, func(it string) bool { return it == "ansible_project" })
 	default:
 		log.Fatalf("Unknown printing level: %s", level)

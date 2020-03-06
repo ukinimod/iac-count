@@ -9,5 +9,7 @@ type FilesCalculator struct {
 }
 
 func (calculator FilesCalculator) Analyze(path, content string) metrics.Metric {
-	return metrics.Files{util.RecursiveFileCount(path)}
+	return metrics.Files{
+		Val: util.RecursiveFileCount(path),
+	}
 }

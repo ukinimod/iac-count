@@ -24,5 +24,7 @@ func (calculator LocCalculator) Analyze(path, content string) metrics.Metric {
 		n++
 	}
 
-	return metrics.Loc{n}
+	return metrics.Loc{
+		Val: n,
+	}
 }

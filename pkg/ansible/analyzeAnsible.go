@@ -27,7 +27,7 @@ var defaultSkipBaseDirList = [...]string{
 }
 
 func calculateMetrics(path string, info os.FileInfo) map[string]metrics.Metric {
-	var metrics = make(map[string]metrics.Metric, len(calculators))
+	var metricMap = make(map[string]metrics.Metric, len(calculators))
 
 	for _, calc := range calculators {
 		var content string
@@ -37,11 +37,11 @@ func calculateMetrics(path string, info os.FileInfo) map[string]metrics.Metric {
 		}
 		metric := calc.Analyze(path, content)
 		if metric != nil {
-			metrics[metric.Name()] = metric
+			metricMap[metric.Name()] = metric
 		}
 	}
 
-	return metrics
+	return metricMap
 }
 
 func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]model.NodeData {
@@ -83,7 +83,7 @@ func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]model.N
 			// analysis
 			log.Debugf("Analyzing %s with path %s", basename, relativePath)
 
-			var nodeType string
+			var nodeType NodeType
 			if !info.IsDir() {
 				nodeType = filetype(relativePath)
 			} else {
@@ -92,7 +92,7 @@ func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]model.N
 
 			fileMetrics[relativePath] = model.NodeData{
 				Path:     relativePath,
-				NodeType: nodeType,
+				NodeType: string(nodeType),
 				Metrics:  calculateMetrics(path, info),
 				Children: make(map[string]string),
 			}
