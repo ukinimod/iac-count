@@ -32,11 +32,11 @@ func calculateMetrics(path string, info os.FileInfo) map[string]metrics.Metric {
 	for _, calc := range calculators {
 		var content string
 
-		if !info.IsDir() {
-			content = input.ReadFileToString(path)
-		}
-		metric := calc.Analyze(path, content)
-		if metric != nil {
+		if calc.IsFileValidForMetric(path) {
+			if !info.IsDir() {
+				content = input.ReadFileToString(path)
+			}
+			metric := calc.Analyze(path, content)
 			metricMap[metric.Name()] = metric
 		}
 	}
@@ -108,7 +108,7 @@ func AnalyzeAnsibleProject(root string, skipDirList []string) map[string]model.N
 			return nil
 		})
 	if err != nil {
-		log.Warnf("%s", err)
+		log.Fatalf("%s", err)
 	}
 
 	return fileMetrics

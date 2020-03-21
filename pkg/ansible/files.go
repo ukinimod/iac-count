@@ -8,6 +8,10 @@ import (
 type FilesCalculator struct {
 }
 
+func (calculator FilesCalculator) IsFileValidForMetric(path string) bool {
+	return true
+}
+
 func (calculator FilesCalculator) Analyze(path, content string) metrics.Metric {
 	return metrics.Files{
 		Val: util.RecursiveFileCount(path),

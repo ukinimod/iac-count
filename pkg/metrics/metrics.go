@@ -8,6 +8,7 @@ type Metric interface {
 
 type MetricCalculator interface {
 	Analyze(path, content string) Metric
+	IsFileValidForMetric(path string) bool
 }
 
 func AggregateMetrics(origin, additional *(map[string]Metric)) { // nolint:gocritic

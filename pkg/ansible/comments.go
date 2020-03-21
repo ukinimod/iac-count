@@ -12,15 +12,11 @@ import (
 type CommentsCalculator struct {
 }
 
-func (calculator CommentsCalculator) isFileValidForMetric(path string) bool {
+func (calculator CommentsCalculator) IsFileValidForMetric(path string) bool {
 	return filepath.Ext(path) == ".yml" || filepath.Ext(path) == ".yaml"
 }
 
 func (calculator CommentsCalculator) Analyze(path, content string) metrics.Metric {
-	if !calculator.isFileValidForMetric(path) {
-		return nil
-	}
-
 	re := regexp.MustCompile(`^\s*#`)
 	count := 0
 	scanner := bufio.NewScanner(strings.NewReader(content))

@@ -12,15 +12,11 @@ import (
 type RlocCalculator struct {
 }
 
-func (calculator RlocCalculator) isFileValidForMetric(path string) bool {
-	return filepath.Ext(path) == ".yml"
+func (calculator RlocCalculator) IsFileValidForMetric(path string) bool {
+	return filepath.Ext(path) == ".yml" || filepath.Ext(path) == ".yaml"
 }
 
 func (calculator RlocCalculator) Analyze(path, content string) metrics.Metric {
-	if !calculator.isFileValidForMetric(path) {
-		return nil
-	}
-
 	re := regexp.MustCompile(`^\s*[^#].*`)
 	count := 0
 	scanner := bufio.NewScanner(strings.NewReader(content))

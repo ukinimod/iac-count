@@ -2,6 +2,7 @@ package util
 
 import (
 	"io/ioutil"
+	"mime"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -9,6 +10,20 @@ import (
 
 	log "github.com/sirupsen/logrus"
 )
+
+func init() {
+	mapping := make(map[string]string)
+	mapping[".yaml"] = "text/yaml"
+	mapping[".yml"] = "text/yaml"
+
+	for key, value := range mapping {
+		err := mime.AddExtensionType(key, value)
+
+		if err != nil {
+			log.Errorf("Error %v", err)
+		}
+	}
+}
 
 func IsHidden(path string) bool {
 	basename := filepath.Base(path)
@@ -47,7 +62,7 @@ func RecursiveFileCount(path string) int {
 			return nil
 		})
 	if err != nil && !os.IsNotExist(err) {
-		log.Warnf("%s", err)
+		log.Errorf("%s", err)
 	}
 	return numFiles
 }
@@ -57,7 +72,8 @@ func SubdirCount(path string) int {
 
 	fileinfo, err := ioutil.ReadDir(path)
 	if err != nil {
-		log.Warnf("%s", err)
+		log.Errorf("%s", err)
+		return 0
 	}
 	for i := range fileinfo {
 		if fileinfo[i].IsDir() && !IsHidden(path) {
@@ -74,4 +90,12 @@ func PathContainsDirName(path, dirName string) bool {
 		log.Warnf("%s", err)
 	}
 	return matched
+}
+
+func IsTextFile(path string) bool {
+	mimeType := mime.TypeByExtension(filepath.Ext(path))
+	isTextFile := strings.HasPrefix(mimeType, "text/") ||
+		strings.HasPrefix(mimeType, "application/json")
+
+	return isTextFile
 }
