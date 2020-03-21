@@ -7,12 +7,14 @@ import (
 )
 
 func TestRloc(t *testing.T) {
-	path := "test/data/main.yml"
-	yamlString := input.ReadFileToString(path)
-	got := RlocCalculator{}.Analyze(path, yamlString).Value()
-	want := 26
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	tests := map[string]metricTest{
+		"successful rloc Calculation": {
+			path:       "test/data/main.yml",
+			content:    input.ReadFileToString("test/data/main.yml"),
+			calculator: RlocCalculator{},
+			output:     26,
+		},
 	}
+
+	runMetricTest(t, tests)
 }

@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"sort"
-
 	analyzer "github.com/MaibornWolff/iac-count/pkg/ansible"
 	"github.com/MaibornWolff/iac-count/pkg/output"
 	"github.com/spf13/cobra"
@@ -16,8 +14,8 @@ var CmdAnsible = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		configureLogging()
 
-		sort.Strings(SkipDirList)
-		fileMetrics := analyzer.AnalyzeAnsibleProject(args[0], SkipDirList)
+		skipDirList := make([]string, 0) // TODO: Extension for future feature
+		fileMetrics := analyzer.AnalyzeAnsibleProject(args[0], skipDirList)
 		output.PrintMetricsAsCsv(fileMetrics, PrintLevel)
 	},
 }

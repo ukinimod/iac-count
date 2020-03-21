@@ -7,12 +7,14 @@ import (
 )
 
 func TestComments(t *testing.T) {
-	path := "test/data/main.yml"
-	yamlString := input.ReadFileToString(path)
-	got := CommentsCalculator{}.Analyze(path, yamlString).Value()
-	want := 2
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	tests := map[string]metricTest{
+		"successful comments Calculation": {
+			path:       "test/data/main.yml",
+			content:    input.ReadFileToString("test/data/main.yml"),
+			calculator: CommentsCalculator{},
+			output:     2,
+		},
 	}
+
+	runMetricTest(t, tests)
 }

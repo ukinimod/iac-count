@@ -13,7 +13,7 @@ type CommentsCalculator struct {
 }
 
 func (calculator CommentsCalculator) isFileValidForMetric(path string) bool {
-	return filepath.Ext(path) == ".yml"
+	return filepath.Ext(path) == ".yml" || filepath.Ext(path) == ".yaml"
 }
 
 func (calculator CommentsCalculator) Analyze(path, content string) metrics.Metric {

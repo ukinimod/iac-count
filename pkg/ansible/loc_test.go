@@ -7,12 +7,14 @@ import (
 )
 
 func TestLoc(t *testing.T) {
-	path := "test/data/main.yml"
-	yamlString := input.ReadFileToString(path)
-	got := LocCalculator{}.Analyze(path, yamlString).Value()
-	want := 28
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	tests := map[string]metricTest{
+		"successful loc Calculation": {
+			path:       "test/data/main.yml",
+			content:    input.ReadFileToString("test/data/main.yml"),
+			calculator: LocCalculator{},
+			output:     27,
+		},
 	}
+
+	runMetricTest(t, tests)
 }

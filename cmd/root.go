@@ -11,16 +11,14 @@ import (
 var Debug bool
 var Quiet bool
 var PrintLevel string
-var SkipDirList []string
 
 func init() {
 	RootCmd.AddCommand(CmdAnsible)
 
 	RootCmd.PersistentFlags().BoolVarP(&Debug, "debug", "d", false, "debug level logging")
-	RootCmd.PersistentFlags().BoolVarP(&Quiet, "quiet", "q", false, "run with error level only logging")
+	RootCmd.PersistentFlags().BoolVarP(&Quiet, "quiet", "q", false, "error level logging only")
 
 	RootCmd.PersistentFlags().StringVar(&PrintLevel, "level", "file", "print level (file|role|project)")
-	RootCmd.PersistentFlags().StringSliceVar(&SkipDirList, "skip-dirs", make([]string, 0), "comma separated list of directories to skip")
 }
 
 func configureLogging() {

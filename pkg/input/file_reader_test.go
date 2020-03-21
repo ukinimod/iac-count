@@ -1,23 +1,29 @@
 package reader
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestReadFileToString(t *testing.T) {
-	exampleData := ReadFileToString("test/data/taskfile.yaml")
-	got := len(exampleData)
-	want := 852
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	tests := map[string]struct {
+		path      string
+		lenOutput int
+	}{
+		"existing file": {
+			path:      "test/data/taskfile.yaml",
+			lenOutput: 852,
+		},
+		"invalid path": {
+			path:      "test/data/unknownfile",
+			lenOutput: 0,
+		},
 	}
-}
 
-func TestReadFileToStringUnknownFile(t *testing.T) {
-	exampleData := ReadFileToString("test/data/unknownfile")
-	got := exampleData
-	want := ""
-
-	if got != want {
-		t.Errorf("got %s want %s", got, want)
+	for testName, test := range tests {
+		t.Logf("Running test case %s", testName)
+		output := len(ReadFileToString(test.path))
+		assert.Equal(t, test.lenOutput, output)
 	}
 }

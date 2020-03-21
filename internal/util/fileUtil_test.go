@@ -2,20 +2,28 @@ package util
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRecursiveFileCount(t *testing.T) {
-	got := RecursiveFileCount("nonexistingfile")
-	want := 0
-
-	if got != want {
-		t.Errorf("got %v want %v", got, want)
+	tests := map[string]struct {
+		path   string
+		output int
+	}{
+		"existing file": {
+			path:   "fileUtil.go",
+			output: 1,
+		},
+		"invalid path": {
+			path:   "nonexistingfile",
+			output: 0,
+		},
 	}
 
-	got = RecursiveFileCount("fileUtil.go")
-	want = 1
-
-	if got != want {
-		t.Errorf("got %v want %v", got, want)
+	for testName, test := range tests {
+		t.Logf("Running test case %s", testName)
+		output := RecursiveFileCount(test.path)
+		assert.Equal(t, test.output, output)
 	}
 }

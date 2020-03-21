@@ -7,6 +7,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.6
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/stretchr/testify v1.2.2
 	golang.org/x/sys v0.0.0-20200302083256-062a44052db1 // indirect
 	gopkg.in/yaml.v2 v2.2.8
 )

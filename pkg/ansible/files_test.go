@@ -5,10 +5,14 @@ import (
 )
 
 func TestFiles(t *testing.T) {
-	got := FilesCalculator{}.Analyze("test/data", "").Value()
-	want := 12
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	tests := map[string]metricTest{
+		"successful files Calculation": {
+			path:       "test/data",
+			content:    "",
+			calculator: FilesCalculator{},
+			output:     12,
+		},
 	}
+
+	runMetricTest(t, tests)
 }

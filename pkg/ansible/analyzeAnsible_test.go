@@ -27,7 +27,7 @@ func TestAnalyzeAnsibleProject(t *testing.T) {
 
 	gotMetrics := gotRoot.Metrics
 	want := make(map[string]int)
-	want["loc"] = 138
+	want["loc"] = 133
 	want["rloc"] = 109
 	want["comment_lines"] = 12
 	want["files"] = 12

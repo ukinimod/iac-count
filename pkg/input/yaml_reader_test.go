@@ -1,24 +1,30 @@
 package reader
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 func TestReadYamlAsList(t *testing.T) {
-	exampleData := ReadFileToString("test/data/taskfile.yaml")
-	got := len(ReadYamlAsList(exampleData))
-	want := 9
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	tests := map[string]struct {
+		content   string
+		lenOutput int
+	}{
+		"valid yaml": {
+			content:   ReadFileToString("test/data/taskfile.yaml"),
+			lenOutput: 9,
+		},
+		"invalid yaml": {
+			content:   " as as as ",
+			lenOutput: 0,
+		},
 	}
-}
 
-func TestReadYamlAsListOnFailure(t *testing.T) {
-	invalidYaml := " as as as "
-	got := len(ReadYamlAsList(invalidYaml))
-	want := 0
-
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
+	for testName, test := range tests {
+		t.Logf("Running test case %s", testName)
+		output := len(ReadYamlAsList(test.content))
+		assert.Equal(t, test.lenOutput, output)
 	}
 }
 
@@ -27,9 +33,7 @@ func TestReadYamlAsMap(t *testing.T) {
 	got := ReadYamlAsMap(exampleData)["simple_var"]
 	want := " ablas"
 
-	if got != want {
-		t.Errorf("got %s want %s", got, want)
-	}
+	assert.Equal(t, want, got)
 }
 
 func TestReadYamlAsMapOnFailure(t *testing.T) {
@@ -37,7 +41,5 @@ func TestReadYamlAsMapOnFailure(t *testing.T) {
 	got := len(ReadYamlAsMap(invalidYaml))
 	want := 0
 
-	if got != want {
-		t.Errorf("got %d want %d", got, want)
-	}
+	assert.Equal(t, want, got)
 }
