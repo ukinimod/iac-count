@@ -10,7 +10,7 @@ type MetricCalculator interface {
 	Analyze(path, content string) Metric
 }
 
-func AggregateMetrics(origin, additional *(map[string]Metric)) {
+func AggregateMetrics(origin, additional *(map[string]Metric)) { // nolint:gocritic
 	for key, metric := range *origin {
 		if addMetric, exists := (*additional)[key]; exists {
 			(*origin)[key] = metric.add(addMetric)

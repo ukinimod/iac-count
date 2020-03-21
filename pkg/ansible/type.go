@@ -83,7 +83,10 @@ func hasRoleStructure(root string) bool {
 		log.Warnf("%s", err)
 	}
 	for _, fileinfoContent := range fileinfo {
-		index := sort.Search(len(necessaryRolePaths), func(i int) bool { return necessaryRolePaths[i] >= fileinfoContent.Name() })
+		index := sort.Search(
+			len(necessaryRolePaths),
+			func(i int) bool { return necessaryRolePaths[i] >= fileinfoContent.Name() }, // nolint:scopelint
+		)
 		if index < len(necessaryRolePaths) && necessaryRolePaths[index] == fileinfoContent.Name() {
 			return true
 		}
