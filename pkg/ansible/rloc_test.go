@@ -12,7 +12,7 @@ func TestRloc(t *testing.T) {
 			path:       "test/data/main.yml",
 			content:    input.ReadFileToString("test/data/main.yml"),
 			calculator: RlocCalculator{},
-			output:     26,
+			output:     25,
 		},
 	}
 
