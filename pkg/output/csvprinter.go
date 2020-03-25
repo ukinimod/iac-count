@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/MaibornWolff/iac-count/internal/util"
-	"github.com/MaibornWolff/iac-count/pkg/model"
+	"github.com/MaibornWolff/iac-count/pkg/metrics"
 )
 
 const (
@@ -21,7 +21,7 @@ func csvHeader(metricNames []string) string {
 	return "path,type," + strings.Join(metricNames, ",")
 }
 
-func csvBodyLine(k string, v model.NodeData, metricNames []string) string {
+func csvBodyLine(k string, v metrics.Node, metricNames []string) string {
 	var sb strings.Builder
 	sb.WriteString(k)
 	sb.WriteString(",")
@@ -38,7 +38,7 @@ func csvBodyLine(k string, v model.NodeData, metricNames []string) string {
 	return sb.String()
 }
 
-func PrintMetricsAsCsv(metrics map[string]model.NodeData, level string) {
+func PrintMetricsAsCsv(metrics map[string]metrics.Node, level string) {
 	switch level {
 	case PrintLevelFile:
 		printAsCsv(metrics, func(it string) bool { return true })
@@ -51,7 +51,7 @@ func PrintMetricsAsCsv(metrics map[string]model.NodeData, level string) {
 	}
 }
 
-func calculatedMetricNames(metrics map[string]model.NodeData) []string {
+func calculatedMetricNames(metrics map[string]metrics.Node) []string {
 	var metricNames []string
 
 	for _, node := range metrics {
@@ -66,7 +66,7 @@ func calculatedMetricNames(metrics map[string]model.NodeData) []string {
 	return metricNames
 }
 
-func printAsCsv(metrics map[string]model.NodeData, filter func(string) bool) {
+func printAsCsv(metrics map[string]metrics.Node, filter func(string) bool) {
 	metricNames := calculatedMetricNames(metrics)
 	fmt.Println(csvHeader(metricNames))
 

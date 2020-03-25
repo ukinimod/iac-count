@@ -3,6 +3,8 @@ package cmd
 import (
 	"os"
 
+	"github.com/MaibornWolff/iac-count/pkg/core"
+	"github.com/MaibornWolff/iac-count/pkg/output"
 	log "github.com/sirupsen/logrus"
 
 	"github.com/spf13/cobra"
@@ -13,8 +15,6 @@ var Quiet bool
 var PrintLevel string
 
 func init() {
-	RootCmd.AddCommand(CmdAnsible)
-
 	RootCmd.PersistentFlags().BoolVarP(&Debug, "debug", "d", false, "debug level logging")
 	RootCmd.PersistentFlags().BoolVarP(&Quiet, "quiet", "q", false, "error level logging only")
 
@@ -34,15 +34,14 @@ func configureLogging() {
 }
 
 var RootCmd = &cobra.Command{
-	Use:     "iac-count",
-	Short:   "An analyzer for iac projects",
-	Long:    `iac-count is an analyzer for iac projects.`,
-	Version: "0.1",
+	Use:   "ANSIBLE_ROOT",
+	Short: "analyzes projects",
+	Long:  "analyzes projects",
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		configureLogging()
-		err := cmd.Usage()
-		if err != nil {
-			log.Fatal(err)
-		}
+
+		fileMetrics := core.DirectoryCreator{}.CreateFromPath(args[0], nil).Analyze()
+		output.PrintMetricsAsCsv(fileMetrics, PrintLevel)
 	},
 }

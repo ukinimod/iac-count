@@ -76,7 +76,7 @@ func SubdirCount(path string) int {
 		return 0
 	}
 	for i := range fileinfo {
-		if fileinfo[i].IsDir() && !IsHidden(path) {
+		if fileinfo[i].IsDir() && !IsHidden(fileinfo[i].Name()) {
 			numDirs++
 		}
 	}
@@ -94,8 +94,11 @@ func PathContainsDirName(path, dirName string) bool {
 
 func IsTextFile(path string) bool {
 	mimeType := mime.TypeByExtension(filepath.Ext(path))
-	isTextFile := strings.HasPrefix(mimeType, "text/") ||
+	return strings.HasPrefix(mimeType, "text/") ||
 		strings.HasPrefix(mimeType, "application/json")
+}
 
-	return isTextFile
+func IsYamlFile(path string) bool {
+	mimeType := mime.TypeByExtension(filepath.Ext(path))
+	return strings.HasPrefix(mimeType, "text/yaml")
 }
