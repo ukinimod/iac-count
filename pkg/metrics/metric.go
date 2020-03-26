@@ -3,6 +3,7 @@ package metrics
 type Metric interface {
 	Name() string
 	Value() int
+	Description() string
 	add(metric Metric) Metric
 }
 
