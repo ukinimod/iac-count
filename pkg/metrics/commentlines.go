@@ -1,6 +1,6 @@
 package metrics
 
-type Commentlines struct {
+type CommentLines struct {
 	Val int
 }
 
