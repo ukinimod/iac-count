@@ -11,7 +11,7 @@ func TestCommentLines(t *testing.T) {
 		"successful comments Calculation": {
 			path:       "test/data/main.yml",
 			content:    input.ReadFileToString("test/data/main.yml"),
-			calculator: CommentlinesCalculator{},
+			calculator: CommentLinesCalculator{},
 			output:     2,
 		},
 	}
