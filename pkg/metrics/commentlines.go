@@ -12,7 +12,7 @@ func (metric Commentlines) Name() string {
 	return "comment_lines"
 }
 
-func (metric Commentlines) Value() int {
+func (metric CommentLines) Value() int {
 	return metric.Val
 }
 
