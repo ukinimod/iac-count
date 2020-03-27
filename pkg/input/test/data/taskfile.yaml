@@ -1,0 +1,44 @@
+---
+# this file contains some tasks
+- name: Name1 
+  yum: name={{ item }} state=present
+  with_items:
+   - first-package
+   - second-package
+
+- name: Name2
+  copy: src=somesrc dest=somedest
+
+- name: Name3
+  copy: src=someothersrc dest=someotherdest
+
+- name: Name4
+  yum: name={{ item }} state=present
+  with_items:
+    - first-other-package
+    - second-other-package
+    - third-other-package
+
+- name: Name5
+  yum: name=pkg state=present
+  tags: pkg
+
+- name: Name6
+  template: src=pkg.conf.j2 dest=/etc/pkg.conf
+  tags: pkg
+  notify: restart pkg
+
+- name: Name7
+  service: name=pkgd state=started enabled=yes
+  tags: pkg
+
+# comment
+- name: Name8
+  template: src=template.j2 dest=templetdest
+  when: ansible_distribution_major_version != '7'
+  notify: restart someserv
+
+- name: Name9
+  command: somecommand
+  register: somehandler
+  changed_when: false
