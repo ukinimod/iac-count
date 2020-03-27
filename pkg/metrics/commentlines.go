@@ -16,7 +16,7 @@ func (metric Commentlines) Value() int {
 	return metric.Val
 }
 
-func (metric Commentlines) add(additional Metric) Metric {
+func (metric CommentLines) add(additional Metric) Metric {
 	if additional == nil {
 		return CommentLines{
 			Val: metric.Value(),
