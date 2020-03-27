@@ -23,7 +23,7 @@ func (metric Commentlines) add(additional Metric) Metric {
 		}
 	}
 
-	return Commentlines{
+	return CommentLines{
 		Val: metric.Value() + additional.Value(),
 	}
 }
