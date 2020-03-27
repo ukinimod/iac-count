@@ -6,7 +6,7 @@ import (
 	input "github.com/MaibornWolff/iac-count/pkg/input"
 )
 
-func TestCommentlines(t *testing.T) {
+func TestCommentLines(t *testing.T) {
 	tests := map[string]metricTest{
 		"successful comments Calculation": {
 			path:       "test/data/main.yml",
