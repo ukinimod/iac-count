@@ -8,7 +8,7 @@ func (metric Commentlines) Description() string {
 	return "Number of comment-only lines in file"
 }
 
-func (metric Commentlines) Name() string {
+func (metric CommentLines) Name() string {
 	return "comment_lines"
 }
 
