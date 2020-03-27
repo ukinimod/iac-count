@@ -4,7 +4,7 @@ type Commentlines struct {
 	Val int
 }
 
-func (metric Commentlines) Description() string {
+func (metric CommentLines) Description() string {
 	return "Number of comment-only lines in file"
 }
 
